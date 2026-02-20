@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Лист для Вікуші 💗</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3CradialGradient id='g' cx='30%25' cy='25%25' r='80%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.95'/%3E%3Cstop offset='55%25' stop-color='%23ffb2d1' stop-opacity='0.98'/%3E%3Cstop offset='100%25' stop-color='%23ff4fa3' stop-opacity='1'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%232a1620'/%3E%3Cpath d='M32 52s-18-10.6-24.2-21.6C3 20 9.5 10.5 20 12.2c4.3.7 7.4 3.7 8.7 5.6 1.3-1.9 4.4-4.9 8.7-5.6C48.5 10.5 55 20 56.2 30.4 50 41.4 32 52 32 52z' fill='url(%23g)'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+  <!-- Іконки в стилі Lucide (білі сердечка, зірочки тощо) -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;">
+    <defs>
+      <symbol id="icon-heart" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+      <symbol id="icon-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><path d="M4 20v4"/><path d="M6 22H2"/><path d="M4 12v4"/><path d="M6 14H2"/></symbol>
+      <symbol id="icon-arrow-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></symbol>
+      <symbol id="icon-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></symbol>
+      <symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    </defs>
+  </svg>
+  <div id="app" class="page">
+    <!-- Progress ribbon -->
+    <div class="ribbon-wrap" id="ribbonWrap">
+      <div class="ribbon-bar"><div class="ribbon-fill" id="ribbonFill"></div></div>
+    </div>
+
+    <!-- Background layers -->
+    <div class="bg-base" aria-hidden="true"></div>
+    <div class="bg-vignette" aria-hidden="true"></div>
+    <div class="soft-glow" aria-hidden="true"></div>
+
+    <!-- Floating hearts (injected by JS with slowed timings) -->
+    <div class="hearts-layer" id="heartsLayer" aria-hidden="true"></div>
+
+    <!-- Scroll heart rail -->
+    <div class="heart-rail" id="heartRail" aria-hidden="true">
+      <svg class="rail-svg" viewBox="0 0 48 520" fill="none"><path d="M24 10 C 40 60, 8 110, 24 160 C 40 210, 8 260, 24 310 C 40 360, 8 410, 24 460 C 40 500, 18 510, 24 510" stroke="rgba(255,255,255,0.82)" stroke-width="3" stroke-linecap="round"/></svg>
+      <div class="rail-hearts" id="railHearts"></div>
+      <div class="rail-percent" id="railPercent">0%</div>
+    </div>
+
+    <!-- Envelope intro overlay -->
+    <div class="envelope-overlay" id="envelopeOverlay">
+      <div class="hearts-layer intro-hearts" id="introHearts" aria-hidden="true"></div>
+      <div class="envelope-bg"></div>
+      <div class="envelope-card">
+        <div class="envelope-inner">
+          <p class="envelope-label">Лист для Вікуші</p>
+          <h2 class="envelope-title">Відкрий — це для тебе</h2>
+          <p class="envelope-text">Ніжно. Романтично. І дуже по-чесному.</p>
+          <div class="envelope-box">
+            <div class="envelope-body">
+              <div class="envelope-base"></div>
+              <div class="envelope-base envelope-base-left"></div>
+              <div class="envelope-base envelope-base-right"></div>
+              <div class="envelope-letter" id="envelopeLetter">
+                <span class="letter-to">Для тебе</span>
+                <div class="letter-lines"></div>
+              </div>
+              <div class="envelope-flap" id="envelopeFlap"></div>
+              <div class="envelope-seal-wrap">
+                <button type="button" class="envelope-seal" id="envelopeSeal" aria-label="Відкрити лист">
+                  <span class="seal-inner">
+                    <svg class="icon seal-heart-svg" aria-hidden="true"><use href="#icon-heart"/></svg>
+                  </span>
+                  <span class="seal-sparkles" aria-hidden="true">
+                    <svg class="icon seal-sparkles-icon" aria-hidden="true"><use href="#icon-sparkles"/></svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+            <p class="envelope-hint">Натисни на печатку-серце</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content (visible after opening envelope) -->
+    <main class="main" id="mainContent" hidden>
+      <header class="header">
+        <div class="reveal badge-wrap" data-reveal-delay="0">
+          <span class="badge"><svg class="icon icon-heart" aria-hidden="true"><use href="#icon-heart"/></svg> Веб-листівка для Вікуші</span>
+        </div>
+        <h1 class="reveal title" data-reveal-delay="0.08">Лапуля,<br><span class="sub">у мене для тебе дещо дуже ніжне</span></h1>
+        <p class="reveal lead" data-reveal-delay="0.14">Я хотів зробити для тебе щось красиве — таке, щоб ти відкрила і усміхнулась. Ти для мене особлива… і я не хочу це приховувати.</p>
+        <div class="reveal actions" data-reveal-delay="0.2">
+          <div class="btn-spark-wrap">
+            <button type="button" class="btn btn-primary" id="btnSecret">Мій секрет</button>
+            <div class="confetti-spark" id="confettiSpark"></div>
+          </div>
+          <button type="button" class="btn btn-secondary" id="btnScroll">Скролити <svg class="icon icon-arrow-down" aria-hidden="true"><use href="#icon-arrow-down"/></svg></button>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="cards-row">
+          <div class="card reveal" data-reveal-delay="0">
+            <div class="card-head"><span class="icon-wrap"><svg class="icon icon-heart" aria-hidden="true"><use href="#icon-heart"/></svg></span><div><strong>Ти вмієш зачаровувати</strong><br><span class="muted">не словами — відчуттям</span></div>
+            </div>
+            <p>Мені подобається, як ти з'являєшся — і в голові стає спокійніше. Ніби світ підлаштовується під твою ніжність.</p>
+          </div>
+          <div class="card reveal" data-reveal-delay="0.08">
+            <div class="card-head"><span class="icon-wrap"><svg class="icon icon-sparkles" aria-hidden="true"><use href="#icon-sparkles"/></svg></span><div><strong>Мені з тобою тепліше</strong><br><span class="muted">навіть на відстані</span></div>
+            </div>
+            <p>Іноді достатньо твого «привіт» — і день вже інший. Я ціную це більше, ніж можу пояснити.</p>
+          </div>
+        </section>
+
+        <section class="block reveal" data-reveal-delay="0">
+          <div class="block-header">
+            <span class="muted">Три речі, які мене в тобі підкорили</span>
+            <h2>Ти — особлива, Вікуша</h2>
+            <p class="muted">Прокрути — і вони відкриються</p>
+          </div>
+          <div class="three-cols">
+            <div class="mini-card reveal" data-reveal-delay="0.06"><strong>Твоя ніжність</strong><p>Вона не слабкість. Вона сила, яка робить людей добрішими.</p></div>
+            <div class="mini-card reveal" data-reveal-delay="0.12"><strong>Твій розум</strong><p>З тобою цікаво. З тобою хочеться говорити і слухати.</p></div>
+            <div class="mini-card reveal" data-reveal-delay="0.18"><strong>Твоя справжність</strong><p>Без масок. Без гри. Саме це мене й зачепило.</p></div>
+          </div>
+          <div class="mini-card full reveal" data-reveal-delay="0.22"><span class="muted">Маленький натяк</span><p>Я хочу бачити тебе частіше. І робити твої дні трішки кращими — якщо ти дозволиш.</p></div>
+        </section>
+
+        <section class="block reveal" data-reveal-delay="0">
+          <h3 class="muted">Конвертик з фото</h3>
+          <h2>Маленька колода спогадів</h2>
+          <p class="deck-desc">Натисни на колоду — фото «розтасуються». Після цього клік по карті — перегляд.</p>
+          <div class="deck-wrap">
+            <div class="deck-area" id="deckArea" role="button" tabindex="0">
+              <div class="deck-hint" id="deckHint">Натисни, щоб «розтасувати»</div>
+              <div class="deck-cards" id="deckCards">
+                <button type="button" class="deck-card" data-id="p1" data-title="Наша посмішка" data-subtitle="Тут наше фото" data-file="love_is_photo_1.png">
+                  <div class="deck-card-img"></div>
+                  <div class="deck-card-cap"><strong>Наша посмішка</strong><span>Тут наше фото</span></div>
+                </button>
+                <button type="button" class="deck-card" data-id="p2" data-title="Теплий момент" data-subtitle="Наші спогади" data-file="love_is_photo_2.png">
+                  <div class="deck-card-img"></div>
+                  <div class="deck-card-cap"><strong>Теплий момент</strong><span>Наші спогади</span></div>
+                </button>
+                <button type="button" class="deck-card" data-id="p3" data-title="Твій погляд" data-subtitle="Найкращий кадр" data-file="love_is_photo_3.png">
+                  <div class="deck-card-img"></div>
+                  <div class="deck-card-cap"><strong>Твій погляд</strong><span>Найкращий кадр</span></div>
+                </button>
+                <button type="button" class="deck-card" data-id="p4" data-title="Ми разом" data-subtitle="Колода спогадів" data-file="love_is_photo_4.png">
+                  <div class="deck-card-img"></div>
+                  <div class="deck-card-cap"><strong>Ми разом</strong><span>Колода спогадів</span></div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="bottom-row">
+          <div class="block wide reveal" data-reveal-delay="0">
+            <span class="muted">Фінал</span>
+            <h2>Я просто хочу, щоб ти знала</h2>
+            <p>Вікуша, ти мені дуже подобаєшся. І я хочу бути поруч — так, щоб це було легко, ніжно і по-справжньому.</p>
+            <div class="actions">
+              <div class="btn-spark-wrap"><button type="button" class="btn btn-primary" id="btnSecret2">Мій секрет</button><div class="confetti-spark" id="confettiSpark2"></div></div>
+              <button type="button" class="btn btn-secondary" id="btnTop">На початок</button>
+            </div>
+          </div>
+          <div class="block reveal kiss-block" data-reveal-delay="0.08">
+            <div class="kiss-burst" id="kissBurst"></div>
+            <span class="muted">Міні-інтерактив</span>
+            <h3>Пограйся</h3>
+            <p>Натисни кнопку нижче 💗 (прямо тут).</p>
+            <div class="actions">
+              <button type="button" class="btn btn-primary" id="btnKiss">Надіслати поцілунок 💋</button>
+              <div class="btn-spark-wrap"><button type="button" class="btn btn-secondary" id="btnSecret3">Зізнатися ще раз</button><div class="confetti-spark" id="confettiSpark3"></div></div>
+            </div>
+            <div class="stats-box">
+              <div><span class="muted">Скрол прогрес</span><strong id="statProgress">0%</strong></div>
+              <div><span class="muted">Сердечок на фоні</span><strong id="statHearts">0</strong><br><span class="muted">і ще в тебе одне моє сердечко 💗</span></div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="footer">
+          <span class="badge">Зроблено з <svg class="icon icon-heart" aria-hidden="true"><use href="#icon-heart"/></svg> для Вікуші</span>
+        </footer>
+      </div>
+    </main>
+    </div>
+
+  <!-- Modals -->
+  <div class="modal-backdrop" id="modalBackdrop" hidden></div>
+  <div class="modal" id="modalSecret" role="dialog" aria-modal="true" aria-labelledby="modalSecretTitle" hidden>
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="modalSecretTitle">Мій секрет</h2>
+        <p class="muted">ESC або клік поза вікном — закрити</p>
+        <button type="button" class="btn btn-close" id="closeSecret">Закрити</button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Вікуша, я закохуюсь у тебе — чесно.</strong></p>
+        <p>Мені дуже хочеться робити тебе щасливою: берегти, підтримувати, смішити і бути поруч.</p>
+        <div class="modal-box">Я завжди буду поруч — у будь-якій ситуації.</div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="modalPhoto" role="dialog" aria-modal="true" aria-labelledby="modalPhotoTitle" hidden>
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="modalPhotoTitle">Фото</h2>
+        <p class="muted">ESC або клік поза вікном — закрити</p>
+        <button type="button" class="btn btn-close" id="closePhoto" aria-label="Закрити"><svg class="icon icon-x" aria-hidden="true"><use href="#icon-x"/></svg></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-photo-wrap"><img id="modalPhotoImg" src="" alt="" /></div>
+        <p class="muted" id="modalPhotoSub"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/site.js"></script>
+</body>
+</html>

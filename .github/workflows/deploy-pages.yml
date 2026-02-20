@@ -1,0 +1,48 @@
+# Деплой на GitHub Pages (статичний сайт без .NET)
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare static site
+        run: |
+          mkdir -p _site
+          cp -r ValentineWeb/wwwroot/* _site/
+          mkdir -p _site/images/photos
+          if [ -d love_is_photos_archive ]; then
+            cp love_is_photos_archive/* _site/images/photos/ 2>/dev/null || true
+          fi
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
