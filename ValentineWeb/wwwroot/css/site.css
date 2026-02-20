@@ -59,12 +59,11 @@ body { margin: 0; font-family: var(--font); color: var(--white); min-height: 100
   75% { transform: translate(calc(var(--dx) * 0.25), calc(var(--dy) * 0.2)) rotate(calc(var(--spin) * 0.4)) scale(1.03); opacity: var(--op); }
 }
 
-/* Heart rail */
+/* Heart rail — лінія з сердечками збоку (є й на мобільній) */
 .heart-rail {
   position: fixed; right: 16px; top: 50%; transform: translateY(-50%); z-index: 40;
-  width: 48px; height: 520px; display: none;
+  width: 48px; height: 520px;
 }
-@media (min-width: 640px) { .heart-rail { display: block; } }
 .rail-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 .rail-hearts { position: absolute; inset: 0; }
 .rail-heart { position: absolute; width: 20px; height: 20px; left: 14px; transition: opacity 0.2s; }
@@ -72,6 +71,12 @@ body { margin: 0; font-family: var(--font); color: var(--white); min-height: 100
 .rail-heart.dim { opacity: 0.35; }
 .rail-heart.dim .rail-heart-icon { color: rgba(255,255,255,0.28); }
 .rail-percent { position: absolute; bottom: -32px; left: 50%; transform: translateX(-50%); font-size: 12px; color: var(--white-80); }
+@media (max-width: 639px) {
+  .heart-rail { right: 6px; width: 36px; }
+  .rail-heart { width: 14px; height: 14px; left: 11px; }
+  .rail-heart-icon { width: 14px; height: 14px; }
+  .rail-percent { font-size: 10px; bottom: -24px; }
+}
 
 /* Envelope overlay */
 .envelope-overlay {
