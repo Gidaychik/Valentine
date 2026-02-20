@@ -263,25 +263,33 @@ body { margin: 0; font-family: var(--font); color: var(--white); min-height: 100
 
 /* Photo deck */
 .deck-desc { margin: 0.5rem 0 0; color: var(--white-80); }
-.deck-wrap { margin-top: 1.5rem; display: flex; justify-content: center; overflow: hidden; }
+.deck-wrap { margin-top: 1.5rem; display: flex; flex-direction: column; align-items: center; overflow: visible; }
 .deck-area {
   position: relative; width: 100%; max-width: 36rem; height: 288px; cursor: pointer; outline: none;
-  border-radius: 28px; border: 1px solid var(--white-18); background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(24px); padding: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+  border-radius: 28px; border: 1px solid rgba(255,255,255,0.22); background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  padding: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(255,255,255,0.06);
+  overflow: hidden;
+  isolation: isolate;
+  contain: paint;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 @media (min-width: 640px) { .deck-area { height: 320px; } }
 @media (max-width: 639px) {
-  .deck-area { height: 260px; padding: 0.75rem; min-height: 240px; }
-  .deck-area.scattered { height: 320px; min-height: 300px; }
+  .deck-area { height: 300px; padding: 0.9rem; min-height: 280px; }
+  .deck-area.scattered { height: 350px; min-height: 330px; }
 }
 .deck-hint {
-  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  margin-top: 0.75rem;
+  display: flex; align-items: center; justify-content: center;
   pointer-events: none; font-size: 0.875rem; color: var(--white-80);
   border-radius: 9999px; border: 1px solid var(--white-18); background: rgba(255,255,255,0.1);
-  margin: auto; width: fit-content; height: fit-content; padding: 0.5rem 1rem; backdrop-filter: blur(8px);
-  transition: opacity 0.2s;
+  width: fit-content; height: fit-content; padding: 0.5rem 1rem;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  transition: opacity 0.2s, transform 0.2s;
 }
-.deck-area.scattered .deck-hint { opacity: 0; pointer-events: none; }
+.deck-area.scattered + .deck-hint { opacity: 0; transform: translateY(-4px); }
 .deck-cards { position: relative; width: 100%; height: 100%; }
 .deck-card {
   position: absolute; left: 50%; top: 12px; width: 210px; height: 250px; margin-left: -105px;
@@ -292,27 +300,27 @@ body { margin: 0; font-family: var(--font); color: var(--white); min-height: 100
 }
 @media (min-width: 640px) { .deck-card { width: 240px; height: 270px; margin-left: -120px; } }
 @media (max-width: 639px) {
-  .deck-card { width: 130px; height: 165px; margin-left: -65px; top: 8px; border-radius: 18px; }
-  .deck-card-cap { padding: 0.5rem; }
-  .deck-card-cap strong { font-size: 0.8rem; }
-  .deck-card-cap span { font-size: 0.7rem; }
+  .deck-card { width: 168px; height: 214px; margin-left: -84px; top: 10px; border-radius: 20px; }
+  .deck-card-cap { padding: 0.75rem; }
+  .deck-card-cap strong { font-size: 0.9rem; }
+  .deck-card-cap span { font-size: 0.78rem; }
 }
 .deck-area.scattered .deck-card:nth-child(1) { --dtx: -210px; --dty: 0; --dr: -7deg; transform: translate(-210px, 0) rotate(-7deg); }
 .deck-area.scattered .deck-card:nth-child(2) { --dtx: -70px; --dty: 7px; --dr: -2deg; transform: translate(-70px, 7px) rotate(-2deg); }
 .deck-area.scattered .deck-card:nth-child(3) { --dtx: 70px; --dty: 7px; --dr: 2deg; transform: translate(70px, 7px) rotate(2deg); }
 .deck-area.scattered .deck-card:nth-child(4) { --dtx: 210px; --dty: 0; --dr: 7deg; transform: translate(210px, 0) rotate(7deg); }
 @media (max-width: 639px) {
-  .deck-area.scattered .deck-card:nth-child(1) { --dtx: -72px; --dty: 0; --dr: -8deg; transform: translate(-72px, 0) rotate(-8deg); }
-  .deck-area.scattered .deck-card:nth-child(2) { --dtx: -24px; --dty: 5px; --dr: -2deg; transform: translate(-24px, 5px) rotate(-2deg); }
-  .deck-area.scattered .deck-card:nth-child(3) { --dtx: 24px; --dty: 5px; --dr: 2deg; transform: translate(24px, 5px) rotate(2deg); }
-  .deck-area.scattered .deck-card:nth-child(4) { --dtx: 72px; --dty: 0; --dr: 8deg; transform: translate(72px, 0) rotate(8deg); }
+  .deck-area.scattered .deck-card:nth-child(1) { --dtx: -84px; --dty: 0; --dr: -7deg; transform: translate(-84px, 0) rotate(-7deg); }
+  .deck-area.scattered .deck-card:nth-child(2) { --dtx: -28px; --dty: 4px; --dr: -2deg; transform: translate(-28px, 4px) rotate(-2deg); }
+  .deck-area.scattered .deck-card:nth-child(3) { --dtx: 28px; --dty: 4px; --dr: 2deg; transform: translate(28px, 4px) rotate(2deg); }
+  .deck-area.scattered .deck-card:nth-child(4) { --dtx: 84px; --dty: 0; --dr: 7deg; transform: translate(84px, 0) rotate(7deg); }
 }
 /* Телефон/планшет у портреті — ще компактніший розкид */
 @media (orientation: portrait) and (max-width: 900px) {
-  .deck-area.scattered .deck-card:nth-child(1) { --dtx: -56px; --dty: 0; --dr: -6deg; transform: translate(-56px, 0) rotate(-6deg); }
-  .deck-area.scattered .deck-card:nth-child(2) { --dtx: -18px; --dty: 4px; --dr: -2deg; transform: translate(-18px, 4px) rotate(-2deg); }
-  .deck-area.scattered .deck-card:nth-child(3) { --dtx: 18px; --dty: 4px; --dr: 2deg; transform: translate(18px, 4px) rotate(2deg); }
-  .deck-area.scattered .deck-card:nth-child(4) { --dtx: 56px; --dty: 0; --dr: 6deg; transform: translate(56px, 0) rotate(6deg); }
+  .deck-area.scattered .deck-card:nth-child(1) { --dtx: -68px; --dty: 0; --dr: -6deg; transform: translate(-68px, 0) rotate(-6deg); }
+  .deck-area.scattered .deck-card:nth-child(2) { --dtx: -22px; --dty: 4px; --dr: -2deg; transform: translate(-22px, 4px) rotate(-2deg); }
+  .deck-area.scattered .deck-card:nth-child(3) { --dtx: 22px; --dty: 4px; --dr: 2deg; transform: translate(22px, 4px) rotate(2deg); }
+  .deck-area.scattered .deck-card:nth-child(4) { --dtx: 68px; --dty: 0; --dr: 6deg; transform: translate(68px, 0) rotate(6deg); }
 }
 .deck-area.scattered .deck-card:hover { transform: translate(var(--dtx), var(--dty)) rotate(var(--dr)) scale(1.03); }
 .deck-card-img {
