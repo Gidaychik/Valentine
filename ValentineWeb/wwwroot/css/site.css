@@ -63,6 +63,7 @@ body { margin: 0; font-family: var(--font); color: var(--white); min-height: 100
 .heart-rail {
   position: fixed; right: 16px; top: 50%; transform: translateY(-50%); z-index: 40;
   width: 48px; height: 520px;
+  pointer-events: none;
 }
 .rail-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 .rail-hearts { position: absolute; inset: 0; }
@@ -72,7 +73,14 @@ body { margin: 0; font-family: var(--font); color: var(--white); min-height: 100
 .rail-heart.dim .rail-heart-icon { color: rgba(255,255,255,0.28); }
 .rail-percent { position: absolute; bottom: -32px; left: 50%; transform: translateX(-50%); font-size: 12px; color: var(--white-80); }
 @media (max-width: 639px) {
-  .heart-rail { right: 6px; width: 36px; }
+  .heart-rail {
+    right: calc(6px + env(safe-area-inset-right));
+    top: calc(72px + env(safe-area-inset-top));
+    transform: none;
+    width: 36px;
+    height: calc(100vh - 144px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    max-height: 520px;
+  }
   .rail-heart { width: 14px; height: 14px; left: 11px; }
   .rail-heart-icon { width: 14px; height: 14px; }
   .rail-percent { font-size: 10px; bottom: -24px; }
@@ -298,6 +306,13 @@ body { margin: 0; font-family: var(--font); color: var(--white); min-height: 100
   .deck-area.scattered .deck-card:nth-child(2) { --dtx: -24px; --dty: 5px; --dr: -2deg; transform: translate(-24px, 5px) rotate(-2deg); }
   .deck-area.scattered .deck-card:nth-child(3) { --dtx: 24px; --dty: 5px; --dr: 2deg; transform: translate(24px, 5px) rotate(2deg); }
   .deck-area.scattered .deck-card:nth-child(4) { --dtx: 72px; --dty: 0; --dr: 8deg; transform: translate(72px, 0) rotate(8deg); }
+}
+/* Телефон/планшет у портреті — ще компактніший розкид */
+@media (orientation: portrait) and (max-width: 900px) {
+  .deck-area.scattered .deck-card:nth-child(1) { --dtx: -56px; --dty: 0; --dr: -6deg; transform: translate(-56px, 0) rotate(-6deg); }
+  .deck-area.scattered .deck-card:nth-child(2) { --dtx: -18px; --dty: 4px; --dr: -2deg; transform: translate(-18px, 4px) rotate(-2deg); }
+  .deck-area.scattered .deck-card:nth-child(3) { --dtx: 18px; --dty: 4px; --dr: 2deg; transform: translate(18px, 4px) rotate(2deg); }
+  .deck-area.scattered .deck-card:nth-child(4) { --dtx: 56px; --dty: 0; --dr: 6deg; transform: translate(56px, 0) rotate(6deg); }
 }
 .deck-area.scattered .deck-card:hover { transform: translate(var(--dtx), var(--dty)) rotate(var(--dr)) scale(1.03); }
 .deck-card-img {

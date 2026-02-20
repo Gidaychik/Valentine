@@ -21,9 +21,10 @@
   }
 
   function setRail() {
+    var railWrap = document.getElementById('heartRail');
     var rail = document.getElementById('railHearts');
     var percentEl = document.getElementById('railPercent');
-    if (!rail || !percentEl) return;
+    if (!railWrap || !rail || !percentEl) return;
     var p = clamp(scrollProgress, 0, 1);
     percentEl.textContent = Math.round(p * 100) + '%';
     var hearts = 13;
@@ -36,14 +37,26 @@
         div.className = 'rail-heart';
         div.setAttribute('aria-hidden', 'true');
         div.innerHTML = railHeartSvg;
-        var t = i / (hearts - 1);
-        div.style.top = (10 + t * 500 - 10) + 'px';
-        div.style.left = (24 + Math.sin(t * Math.PI * 5) * 10 - 10) + 'px';
         rail.appendChild(div);
       }
     }
+    var wrapH = railWrap.clientHeight || 520;
+    var wrapW = railWrap.clientWidth || 48;
+    var scaleY = wrapH / 520;
+    var scaleX = wrapW / 48;
+    var heartSize = rail.children[0] ? rail.children[0].getBoundingClientRect().width : 20;
+    if (!heartSize || isNaN(heartSize)) heartSize = 20;
+
     for (var j = 0; j < rail.children.length; j++) {
-      rail.children[j].classList.toggle('dim', j > active);
+      var child = rail.children[j];
+      var t = (hearts <= 1) ? 0 : j / (hearts - 1);
+      var xCenterBase = 24 + Math.sin(t * Math.PI * 5) * 10;
+      var yCenterBase = 10 + t * 500;
+      var x = xCenterBase * scaleX;
+      var y = yCenterBase * scaleY;
+      child.style.left = (x - heartSize / 2) + 'px';
+      child.style.top = (y - heartSize / 2) + 'px';
+      child.classList.toggle('dim', j > active);
     }
   }
 
