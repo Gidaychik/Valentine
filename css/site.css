@@ -11,11 +11,13 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-html { overflow-x: hidden; }
-body { margin: 0; font-family: var(--font); color: var(--white); min-height: 100vh; overflow-x: hidden; }
+html, body { overflow-x: hidden; width: 100%; }
+@supports (overflow: clip) { html, body { overflow-x: clip; } }
+body { margin: 0; font-family: var(--font); color: var(--white); min-height: 100vh; }
 @media (max-width: 900px) { body { touch-action: pan-y; overscroll-behavior-x: none; } }
 
-.page { position: relative; min-height: 100vh; }
+.page { position: relative; min-height: 100vh; width: 100%; overflow-x: hidden; }
+@supports (overflow: clip) { .page { overflow-x: clip; } }
 
 /* Progress ribbon */
 .ribbon-wrap { position: sticky; top: 0; z-index: 40; }
@@ -265,7 +267,7 @@ body { margin: 0; font-family: var(--font); color: var(--white); min-height: 100
 
 /* Photo deck */
 .deck-desc { margin: 0.5rem 0 0; color: var(--white-80); }
-.deck-wrap { margin-top: 1.5rem; display: flex; flex-direction: column; align-items: center; overflow: visible; }
+.deck-wrap { margin-top: 1.5rem; display: flex; justify-content: center; overflow: visible; width: 100%; }
 .deck-area {
   position: relative; width: 100%; max-width: 36rem; height: 288px; cursor: pointer; outline: none;
   border-radius: 28px; border: 1px solid rgba(255,255,255,0.22); background: rgba(255,255,255,0.1);
@@ -283,18 +285,16 @@ body { margin: 0; font-family: var(--font); color: var(--white); min-height: 100
   .deck-area.scattered { height: 350px; min-height: 330px; }
 }
 .deck-hint {
-  margin-top: 0.75rem;
+  margin: 0.75rem auto 0;
   display: flex; align-items: center; justify-content: center;
   pointer-events: none; font-size: 0.875rem; color: var(--white-80);
   border-radius: 9999px; border: 1px solid var(--white-18); background: rgba(255,255,255,0.1);
-  width: fit-content; height: fit-content; padding: 0.5rem 1rem;
+  width: fit-content; max-width: calc(100% - 2rem); height: fit-content; padding: 0.5rem 1rem;
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
   transition: opacity 0.2s, transform 0.2s;
-  order: 2;
   position: relative;
 }
-.deck-area { order: 1; }
-.deck-area.scattered + .deck-hint { opacity: 0; transform: translateY(-4px); }
+.deck-hint.hide { opacity: 0; transform: translateY(-4px); }
 .deck-cards { position: relative; width: 100%; height: 100%; }
 .deck-card {
   position: absolute; left: 50%; top: 12px; width: 210px; height: 250px; margin-left: -105px;
