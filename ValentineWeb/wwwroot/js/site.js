@@ -288,6 +288,8 @@
     if (!deckScattered) {
       deckScattered = true;
       deckArea.classList.add('scattered');
+      var hint = document.getElementById('deckHint');
+      if (hint) hint.classList.add('hide');
       return;
     }
     var card = e.target.closest('.deck-card');
@@ -306,4 +308,13 @@
   initHearts();
 
   document.getElementById('statHearts').textContent = heartCountActual;
+
+  // Анти-горизонтальний скрол на мобільних (деякі браузери все одно дозволяють зсув)
+  function lockHorizontalScroll() {
+    var de = document.documentElement;
+    if (de && de.scrollLeft) de.scrollLeft = 0;
+    if (document.body && document.body.scrollLeft) document.body.scrollLeft = 0;
+  }
+  window.addEventListener('scroll', lockHorizontalScroll, { passive: true });
+  window.addEventListener('resize', lockHorizontalScroll, { passive: true });
 })();
